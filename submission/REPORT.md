@@ -58,7 +58,7 @@
 | `img_017.jpg` | `sam2.1_b.pt` | 1 pos, 1 neg | Dính nhẹ phần nền/vật che cạnh xe | Vật bị che khuất một phần nên biên mask bị răng cưa ở vùng giao nhau | `submission/masks/occluded_img017.jpg` |
 
 - **Đối chiếu guideline mục 4.2:** Quy tắc tách `person` và xe (mục 4.1.4 & 4.2) rất cần thiết vì SAM mặc định gộp cả người lái vào xe khi dùng 1–2 click; quy tắc lỗ thủng `< 5%` giúp không phải đục các khe nhỏ trên khung xe.
-- **Interactor SAM trong CVAT (đã kết nối `SAM 3 (Google Colab GPU)`):** Khi bấm trực tiếp trong CVAT trả về polygon ngay trên giao diện để chỉnh tay từng đỉnh tiện hơn, còn `sam2_points.py` chạy offline giúp lưu lại ảnh minh họa tọa độ click rõ ràng để kiểm chứng.
+- **Interactor SAM trong CVAT (`SAM 3 (Google Colab GPU)`):** Đã cài và kết nối qua Nuclio proxy (link notebook SAM 3: https://colab.research.google.com/drive/1LNpNfKtkZG_NwuGHZ6SwbMyh7SqF24hr#scrollTo=step3), nhưng **không sử dụng** cho bài nộp chính mà dùng `sam2.1_b.pt` qua `sam2_points.py` để đồng bộ định dạng ảnh mask đầu ra kèm tọa độ click.
 
 ## 6. Calibration (Part 6)
 
@@ -80,7 +80,7 @@
 
 - **Dùng AI để làm bài:** Có sử dụng trợ lý AI để hỗ trợ kiểm tra lỗi môi trường Windows/Google Drive, giải nén file export từ CVAT/Colab, chạy các script đo kiểm (`threshold_sweep.py`, `review_stats.py`, `qc_sample.py`, `qc_report.py`), và rà soát đối chiếu số liệu từ `review_stats.md` vào báo cáo. Toàn bộ việc gán nhãn và review trong CVAT do học viên tự thực hiện bằng mắt.
 - **Gold có bị nhiễm không:** **Không.** 4 ảnh gold được gán tay hoàn toàn trong CVAT trước khi chạy bất kỳ model pre-label nào ở Part 2.
-- **Máy / GPU / CVAT:** Windows 11, không có GPU NVIDIA; chạy CVAT Docker `v2.81.0` trên máy (kèm Nuclio `YOLO26n`, `YOLOE26s`, `SAM 3 Colab proxy`) và chạy script `prelabel.py` / `sam2_points.py` trên Google Colab (CPU). Vướng mắc: Google Drive Desktop đôi lúc ngắt kết nối giữa ổ `G:` và `D:`.
+- **Máy / GPU / CVAT:** Windows 11, không có GPU NVIDIA; chạy CVAT Docker `v2.81.0` trên máy (kèm Nuclio `YOLO26n`, `YOLOE26s`, và `SAM 3 Colab proxy` — có cài nhưng không dùng, link: https://colab.research.google.com/drive/1LNpNfKtkZG_NwuGHZ6SwbMyh7SqF24hr#scrollTo=step3) và chạy script `prelabel.py` / `sam2_points.py` trên Google Colab (CPU). Vướng mắc: Google Drive Desktop đôi lúc ngắt kết nối giữa ổ `G:` và `D:`.
 - **Dùng cache `data/cache/`:** **Không.** Đã tự chạy toàn bộ `prelabel.py` (`pilot` và `all`) trên Google Colab và lưu `work/runs.csv`.
 - **Lỗi / bug đã gặp:** Bẫy `img_034.jpg` (`wrong_class`) gốc máy là `three_wheeler` bị đổi thành `car`; khi sửa đúng theo guideline thành `truck` thì `review_stats.py` không tính bắt được bẫy.
 - **Một điều làm khác lần sau:** Sao chép repo ra ổ đĩa cục bộ ngay từ đầu để tránh rớt đồng bộ Google Drive và kiểm tra kỹ 4 cạnh box ngay từ lượt review đầu tiên.
